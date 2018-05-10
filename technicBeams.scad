@@ -4,33 +4,34 @@
 
     eps = 0.05;
     
-    Pitch = 8;
-    Radius1 = 4.8 / 2;
-    Radius2 = 6.1 / 2;
-    Height = 7.8;
-    Depth = 0.8;
-    Width = 7.5;
-    MidThickness = 2;
+    technicPitch = 8;
+    technicRadius1 = 4.8 / 2;
+    technicRadius2 = 6.1 / 2;
+    technicHeight = 7.8;
+    technicDepth = 0.8;
+    technicWidth = 7.5;
+    technicMidThickness = 2;
 
+use <raft.scad>
 
 module technicHolePunch(){
     union(){
-        translate([0,0,-eps]) cylinder(r=Radius2,h=Depth+eps);
-        translate([0,0,-eps]) cylinder(r=Radius1,h=Height+2*eps);
-		translate([0,0,Height-Depth]) cylinder(r=Radius2,h=Depth+eps);
+        translate([0,0,-eps]) cylinder(r=technicRadius2,h=technicDepth+eps);
+        translate([0,0,-eps]) cylinder(r=technicRadius1,h=technicHeight+2*eps);
+		translate([0,0,technicHeight-technicDepth]) cylinder(r=technicRadius2,h=technicDepth+eps);
         }
 }
 
 module technicHole(midSupport=false){
 
-    Length = Pitch;
+    Length = technicPitch;
     
     difference(){
         union() {
-            cylinder(r=Width/2, h=Height);
+            cylinder(r=technicWidth/2, h=technicHeight);
             if (midSupport==true)
             {
-                translate([-Pitch/2, -Width/2, Height/2-MidThickness/2]) cube([Pitch, Width, MidThickness]);
+                translate([-technicPitch/2, -technicWidth/2, technicHeight/2-technicMidThickness/2]) cube([technicPitch, technicWidth, technicMidThickness]);
             }
         }
         technicHolePunch();
@@ -40,25 +41,27 @@ module technicHole(midSupport=false){
 
 module technicBeam(NrOfHoles){
     
-    Length = (NrOfHoles - 1) * Pitch;
-	Thickness = (Width - 2 * Radius2) / 2;
+    Length = (NrOfHoles - 1) * technicPitch;
+	Thickness = (technicWidth - 2 * technicRadius2) / 2;
     
-    translate([0,-Width/2,0]){
+//    translate([0,-technicWidth/2,0])
+    translate([technicPitch/2,0,0])
+    {
     
     difference(){
     union() {
-        cube([Length, Thickness, Height]);
-        translate([0, Width-Thickness,0]) cube([Length, Thickness, Height]);
-        translate([0, 0, Height/2-MidThickness/2]) cube([Length, Width, MidThickness]);
+        cube([Length, Thickness, technicHeight]);
+        translate([0, technicWidth-Thickness,0]) cube([Length, Thickness, technicHeight]);
+        translate([0, 0, technicHeight/2-technicMidThickness/2]) cube([Length, technicWidth, technicMidThickness]);
         
         for(i = [1:NrOfHoles]){
-            translate([(i-1)*Pitch, Width/2,0]){
+            translate([(i-1)*technicPitch, technicWidth/2,0]){
                 technicHole();
             }
         }
     }
         for(i = [1:NrOfHoles]){
-            translate([(i-1)*Pitch, Width/2,0]){
+            translate([(i-1)*technicPitch, technicWidth/2,0]){
                 technicHolePunch();
             }
         }
@@ -67,8 +70,8 @@ module technicBeam(NrOfHoles){
 }
 
 module technicSolidBeam(NrOfHoles){
-    Length = (NrOfHoles - 1) * Pitch;
-	Thickness = (Width - 2 * Radius2) / 2;
+    Length = (NrOfHoles - 1) * technicPitch;
+	Thickness = (technicWidth - 2 * technicRadius2) / 2;
     
     difference(){
         union(){
@@ -78,13 +81,13 @@ module technicSolidBeam(NrOfHoles){
             translate([Length,,0]){
                 technicHole();
             }
-            translate([0,-Width/2,0]){
-                cube([Length,Width,Height]);
+            translate([0,-technicWidth/2,0]){
+                cube([Length,technicWidth,technicHeight]);
             }
         }
         union(){
             for(i = [1:NrOfHoles]){
-                translate([(i-1)*Pitch, 0,0]){
+                translate([(i-1)*technicPitch, 0,0]){
                     technicHolePunch();
                 }
             }
@@ -94,5 +97,19 @@ module technicSolidBeam(NrOfHoles){
     
 }
 
+module technicRaft(NrOfHoles){
+    Length = (NrOfHoles - 1) * technicPitch + (1.666*technicPitch);
+    RaftDepth=1;
+    translate([-technicPitch/3,-technicWidth/4,0]){
+        raft([Length*1,technicWidth*1.5,RaftDepth]);
+    }
+    translate([0,0,RaftDepth]){
+        technicBeam(NrOfHoles);
+    }
+}
+
 //technicSolidBeam(3);
-//technicBeam(6);
+technicRaft(3);
+//technicBeam(3);
+
+
