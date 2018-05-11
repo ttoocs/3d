@@ -99,17 +99,19 @@ module technicSolidBeam(NrOfHoles){
 
 module technicRaft(NrOfHoles){
     Length = (NrOfHoles - 1) * technicPitch + (1.666*technicPitch);
-    RaftDepth=1;
+    RaftDepth=2;
+    union(){
     translate([-technicPitch/3,-technicWidth/4,0]){
         raft([Length*1,technicWidth*1.5,RaftDepth]);
     }
     translate([0,0,RaftDepth]){
         technicBeam(NrOfHoles);
     }
+    }
 }
 
 //technicSolidBeam(3);
-technicRaft(3);
+technicRaft(13);
 //technicBeam(3);
 
 
