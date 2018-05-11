@@ -14,7 +14,7 @@ module raftSlice(Sz){
     
     //Constant Stride
     // /*
-    stride = 3;
+    stride = 2.5;
     steps = x/stride;
     
     // */

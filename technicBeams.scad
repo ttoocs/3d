@@ -2,15 +2,20 @@
 //Technic params.
     $fn=128;
 
-    eps = 0.05;
     
-    technicPitch = 8;
-    technicRadius1 = 4.8 / 2;
-    technicRadius2 = 6.1 / 2;
-    technicHeight = 7.8;
-    technicDepth = 0.8;
-    technicWidth = 7.5;
-    technicMidThickness = 2;
+    
+    technicRescale = 1.06;
+    //1.04, good for clippy things, nogood for slidy.
+    
+    eps = 0.05 * technicRescale;
+    
+    technicPitch = 8 * technicRescale;
+    technicRadius1 = (4.8 / 2)* technicRescale;
+    technicRadius2 = (6.1 / 2)* technicRescale;
+    technicHeight = 7.8* technicRescale;
+    technicDepth = 0.8* technicRescale;
+    technicWidth = 7.5* technicRescale;
+    technicMidThickness = 2* technicRescale;    
 
 use <raft.scad>
 
@@ -72,7 +77,8 @@ module technicBeam(NrOfHoles){
 module technicSolidBeam(NrOfHoles){
     Length = (NrOfHoles - 1) * technicPitch;
 	Thickness = (technicWidth - 2 * technicRadius2) / 2;
-    
+    translate([technicPitch/2,technicWidth/2,0]){
+        
     difference(){
         union(){
             translate([0,,0]){
@@ -94,6 +100,7 @@ module technicSolidBeam(NrOfHoles){
         }
         
     }
+    }
     
 }
 
@@ -102,16 +109,21 @@ module technicRaft(NrOfHoles){
     RaftDepth=2;
     union(){
     translate([-technicPitch/3,-technicWidth/4,0]){
-        raft([Length*1,technicWidth*1.5,RaftDepth]);
+        raft([Length*1,technicWidth*1.5,RaftDepth]);  
+        //cube([1,1,2*RaftDepth]); //Re-use old raft
     }
+    
+     
+    
     translate([0,0,RaftDepth]){
-        technicBeam(NrOfHoles);
+        //technicBeam(NrOfHoles);
+        technicSolidBeam(NrOfHoles);
     }
     }
 }
 
 //technicSolidBeam(3);
-technicRaft(13);
+technicRaft(1);
 //technicBeam(3);
 
 
