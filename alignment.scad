@@ -17,7 +17,7 @@ module alignment(Sz,s){
     for(i = [0:steps]){
 
         translate([(i)*stride,0,0]){
-            cylinder(h=z,r1=y/3*s,r2=y/2*s);
+            cylinder(h=z,r1=y/3,r2=y/2*s);
         }
     }
     }
@@ -37,8 +37,9 @@ module alignmentB(Sz){
 }
 
 
-difference(){
-    translate([0,0,0]){
+//difference()
+{
+    translate([0,0,5]){
         alignmentB([32,5,3]);
     }
 alignmentA([32,5,3.01]);
