@@ -4,7 +4,7 @@
 
     
     
-    technicRescale = 1.06;
+    technicRescale = 1.00;
     //1.04, good for clippy things, nogood for slidy.
     
     eps = 0.05 * technicRescale;
@@ -26,6 +26,8 @@ module technicHolePunch(){
 		translate([0,0,technicHeight-technicDepth]) cylinder(r=technicRadius2,h=technicDepth+eps);
         }
 }
+//technicHolePunch();
+
 
 module technicHole(midSupport=false){
 
@@ -43,6 +45,7 @@ module technicHole(midSupport=false){
     }
 }
 
+//technicHole();
 
 module technicBeam(NrOfHoles){
     
@@ -123,7 +126,7 @@ module technicRaft(NrOfHoles){
 }
 
 //technicSolidBeam(3);
-technicRaft(1);
+//technicRaft(13);
 //technicBeam(3);
 
 
