@@ -24,17 +24,5 @@ Provided under Creative Commons.
 
 # Not-up3d rafts.
  * It's coded in OpenScad, and simply takes a (X,Y,Z), where Z is height, and half of the Z is used for a solid-medium, and the other half is half-filled. I find using Z=2 is pretty effective, and with the current spacing config it seems pretty easy to remove the object from the raft (I use the big metal flat thing, and just put it between the object/raft, but for smaller ones you can usually just twist it off)
- * To actually use it, you will need to import a generic object into openScad ex:
-`use <raft.scad>
-
-union(){
-    translate([0,0,2]){
-        import ("cube.stl");
-    }
-    translate([-2.5,-2.5,0]){ //Move the raft end to not be align with the object
-        raft([30,13,2]); //30,13 are just found by trial, 2 is usually pretty good.
-    }
-    
-}
-`
+ * To actually use it, you will need to import a generic object into openScad, an example is included.
 
