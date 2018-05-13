@@ -125,6 +125,15 @@ module technicRaft(NrOfHoles){
     }
 }
 
+function technicBox(NrOfHoles) = [ 
+    (NrOfHoles ) * technicPitch,
+	(technicWidth ),
+    technicHeight];
+ */
+
+//technicBox(3);
+//cube(technicBox(3));
+
 //technicSolidBeam(3);
 //technicRaft(13);
 //technicBeam(3);
