@@ -23,7 +23,16 @@ Provided under Creative Commons.
 
 
 # Not-up3d rafts.
- * It's coded in OpenSCAD, and simply takes a (X,Y,Z), where Z is height, and half of the Z is used for a solid-medium, and the other half is half-filled. I find using Z=2 is pretty effective, and with the current spacing config it seems pretty easy to remove the object from the raft (I use the big metal flat thing, and just put it between the object/raft, but for smaller ones you can usually just twist it off)
+ * It's coded in OpenSCAD, and simply takes a (X,Y,Z), where Z is height, and half of the Z is used for a solid-medium, and the other half is half-filled (this can be changed inside the raft file). I find using Z=2 is pretty effective, and with the current spacing config it seems pretty easy to remove the object from the raft (I use the big metal flat thing, and just put it between the object/raft, but for smaller ones you can usually just twist it off). Update: It was only easy for a few smaller objects, on a larger object I was printing it became a pain.
  * To actually use it, you will need to import a generic object into openSCAD, an example is included. 
  * **You will need to have the raft larger than the object, otherwise it's just as hard to remove**
 
+
+# Resuming a print
+ * This is gonna be tedious if you need to do this.
+ * The up3d software has no support what-so-ever for this.
+ * Don't merge objects in the up3d software for printing multiple objects... if you do this, you cannot easily pull positions out again and crop the bottoms off. Rather, merge them somewhere else. (OpenSCAD does this, albeit.. it's lack of object-centering (or putting them on the same Z-axis) will probably lead to unnecessary _fun_.
+ * Aaand I did the above, so I have no idea, but I'd just crop the bottom off  via eye-balling it, or maybe count the layers multiply by the print height.
+
+# To not running out of filament during a print
+ * It seems that the printer doesn't have enough power to pull the filament fully if it tightly wrapped around, however if you loosen the filament, it seems to work better.
