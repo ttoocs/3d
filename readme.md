@@ -24,5 +24,6 @@ Provided under Creative Commons.
 
 # Not-up3d rafts.
  * It's coded in OpenSCAD, and simply takes a (X,Y,Z), where Z is height, and half of the Z is used for a solid-medium, and the other half is half-filled. I find using Z=2 is pretty effective, and with the current spacing config it seems pretty easy to remove the object from the raft (I use the big metal flat thing, and just put it between the object/raft, but for smaller ones you can usually just twist it off)
- * To actually use it, you will need to import a generic object into openSCAD, an example is included.
+ * To actually use it, you will need to import a generic object into openSCAD, an example is included. 
+ * **You will need to have the raft larger than the object, otherwise it's just as hard to remove**
 
